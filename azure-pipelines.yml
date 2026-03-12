@@ -20,12 +20,13 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'K8SExamplesACR'
+        containerRegistry: 'myclusterACR'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: |
           $(tag)
+
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Pipeline.Workspace)/s/kubernetes'
@@ -54,27 +55,7 @@ stages:
               buildType: 'current'
               artifactName: 'manifests'
               targetPath: '$(Pipeline.Workspace)/manifests'
-          - task: KubernetesManifest@0
-            inputs:
-              action: 'createSecret'
-              namespace: 'default'
-              secretType: 'dockerRegistry'
-              secretName: '$(acrsecret)'
-              dockerRegistryEndpoint: 'K8SExamplesACR'
-          - task: replacetokens@3
-            displayName: Replace Tokens
-            inputs:
-              rootDirectory: '$(Pipeline.Workspace)/manifests/'
-              targetFiles: 'deployment.yml'
-              encoding: 'auto'
-              writeBOM: true
-              actionOnMissing: 'warn'
-              keepToken: false
-              tokenPrefix: '#'
-              tokenSuffix: '#'
-              useLegacyPattern: false
-              enableTransforms: false
-              enableTelemetry: true
+
           - task: KubernetesManifest@0
             inputs:
               action: 'deploy'
@@ -83,4 +64,3 @@ stages:
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
               containers: '$(acrdevurl)/$(imageRepo):$(tag)'
-              imagePullSecrets: '$(acrsecret)'
