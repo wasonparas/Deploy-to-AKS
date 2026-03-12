@@ -15,7 +15,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: Default
+      name: Default
     steps:
     - task: Docker@2
       displayName: Build an image
@@ -43,7 +43,7 @@ stages:
     displayName: Deploy to AKS
     environment: 'k8sdev.default'
     pool: 
-      vmImage: Default
+      name: Default
     strategy:
       runOnce:
         deploy:
