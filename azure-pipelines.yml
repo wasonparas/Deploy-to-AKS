@@ -42,7 +42,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
-    environment: 'k8sdev.default'
+    environment: 'mycluster.default'
     pool: 
       name: Default
     strategy:
