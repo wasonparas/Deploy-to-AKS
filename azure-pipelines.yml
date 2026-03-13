@@ -25,7 +25,7 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: |
-          $(tag)
+          latest
 
     - task: PublishPipelineArtifact@1
       inputs:
@@ -61,4 +61,4 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              containers: '$(acrdevurl)/$(imageRepo):$(tag)'
+              containers: '$(acrdevurl)/$(imageRepo):latest'
