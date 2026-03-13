@@ -34,7 +34,6 @@ stages:
         publishLocation: 'pipeline'
         
 - stage: Deploy
-  condition: false
   displayName: Deploy to Dev
   dependsOn: Build
   variables:
