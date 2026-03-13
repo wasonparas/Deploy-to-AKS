@@ -11,6 +11,7 @@ variables:
 stages:
 - stage: Build
   displayName: Build image
+  condition: false
   jobs:
   - job: Build
     displayName: Build
