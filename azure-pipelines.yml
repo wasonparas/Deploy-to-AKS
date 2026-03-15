@@ -20,8 +20,8 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'myclusterACR'
-        acrdevurl: 'myclusteracr.azurecr.io'
+        containerRegistry: 'myrego'
+        acrdevurl: 'myrego.azurecr.io'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
