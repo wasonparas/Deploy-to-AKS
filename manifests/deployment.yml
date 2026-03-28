@@ -1,19 +1,19 @@
-apiVersion : apps/v1
+# deployment.yml
+
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wasonparas 
+  name: my-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: wasonparas
+      app: my-app
   template:
     metadata:
       labels:
-        app: wasonparas 
+        app: my-app
     spec:
       containers:
-        - name: wasonparas 
-          image: myrego.azurecr.io/wasonparas
-          ports:
-          - containerPort: 80
+      - name: my-container
+        image: my-image
