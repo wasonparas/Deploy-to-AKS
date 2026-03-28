@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Run unit tests
+echo "Running unit tests..."
+if ! ./run_tests.sh; then
+  echo "Unit tests failed. Aborting push."
+  exit 1
+fi
+
+# Validate Kubernetes manifests
+echo "Validating Kubernetes manifests..."
+if ! kubectl apply --dry-run=client -f k8s/; then
+  echo "Kubernetes manifest validation failed. Aborting push."
+  exit 1
+fi
+
+echo "All checks passed. Ready to push!"
+exit 0
